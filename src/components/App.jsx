@@ -17,18 +17,20 @@ export function App () {
     ]);
     const [filter, setFilter] = useState('');
 
-  useEffect(()=>{
-    const newContacts = JSON.parse(localStorage.getItem("contacts"));
-       if (newContacts) {
-        setContacts(newContacts) 
-       }
-  },[]);
+    useEffect(()=>{
+      const newContacts = JSON.parse(localStorage.getItem("contacts"));
+         if (newContacts) {
+          setContacts(newContacts) 
+         }
+    },[]);
+  
+    useEffect(()=>{
+    if (contacts)
+        localStorage.setItem("contacts", JSON.stringify
+         (contacts)) 
+    },[contacts]);
 
-  useEffect(()=>{
-  if(!contacts) return
-      localStorage.setItem("contacts", JSON.stringify
-       (contacts)) 
-  },[contacts]);
+
 
  const addContacts = ({ name, number }) => {
     const contactEl = {
@@ -49,12 +51,10 @@ export function App () {
         contact.name.toLowerCase().includes(normalizedFilter));
   }
 
-  const onDeleteContacts =id=>{
-    this.setState((prevState)=> ({
-      contacts: prevState.contacts.filter(
-        (contact)=> contact.id !== id
-      ),
- }))
+  const onDeleteContacts = id => {
+    setContacts(contacts =>
+      contacts.filter(contact => contact.id !== id)
+    );
  };
 
   const componentFilter = e => {
