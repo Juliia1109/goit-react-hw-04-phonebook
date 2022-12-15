@@ -38,6 +38,7 @@ export function App () {
       name: name,
       number: number,
     };
+    
     if (contacts.find(contact => contact.name === name)) {
       alert(`${name} is already in contacts`);
         return;
